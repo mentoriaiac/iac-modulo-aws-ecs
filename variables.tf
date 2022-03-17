@@ -9,7 +9,7 @@ variable "tags" {
   default = {
     name = "cluster-ecs-mentoria-iac"
   }
-  description = "description"
+  description = "Tags para recurso"
 }
 
 variable "region" {
