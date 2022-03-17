@@ -49,7 +49,7 @@ Este modulo permite provisionar cluster ECS.
 ## To do...
 ### Precisamos criar/definir:
 - **cloudwatch_log_group**: precisamos de log_group que será utilizado pela task definition.
-- **am_role**: criar uma role que será anexada ao service ecs.
+- **iam_role**: criar uma role que será anexada ao service ecs.
 - **iam_policy**: uma policy que permita o container enviar log para cloudwatch.
 - **iam_role_policy_attachment**: anexar a police/role.
 - **aws_lb**: application loadbalance "será publico ou privado?".
@@ -57,6 +57,7 @@ Este modulo permite provisionar cluster ECS.
 - **lb_target_group**: fornece um target para uso do ALB.
 - **VPC**: VPC utilizada para projeto.
 - **security_group**: grupo de segurança utilizado no projeto.
-- security_group_rule: regras de firewall para ingress do app/alb. 
+- **security_group_rule**: regras de firewall para ingress do app/alb. 
 - ***route53_record**: escopo de dns para projeto. 
+
 continua...
