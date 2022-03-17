@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_hashicups"></a> [hashicups](#provider\_hashicups) | 0.3.1 |
+| <a name="provider_aws"></a> [aws](#aws\_hashicups) | 4.0 |
 
 ## Modules
 

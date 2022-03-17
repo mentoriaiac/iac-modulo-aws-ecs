@@ -1,0 +1,14 @@
+[
+    {
+      "cpu": 256,
+      "image": "httpd",
+      "memory": 256,
+      "name": "httpd",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
