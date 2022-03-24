@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "task-cluster" {
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
   network_mode             = "awsvpc"
-  container_definitions    = file("task-definitions.json")
+  container_definitions = file(var.template_container)
 
   tags = {
     name = var.tags["name"]

@@ -3,7 +3,7 @@
       "cpu": 256,
       "image": "httpd",
       "memory": 256,
-      "name": "httpd",
+      "name": "mentoria-iac",
       "portMappings": [
         {
           "containerPort": 80,
