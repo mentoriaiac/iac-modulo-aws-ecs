@@ -1,3 +1,6 @@
+## Infraestrutura
+Imagem da infraestrutura do projeto.
+![image](./img/ecs-mentoria.png)
 ## Requirements
 
 | Name | Version |
@@ -22,6 +25,19 @@ Este modulo permite provisionar cluster ECS.
 | [aws_ecs_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource |
 | [aws_ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
 | [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
+| [aws_appautoscaling_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
+| [aws_appautoscaling_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | resource |
+| [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
+| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lbhttps://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource |
+| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
+| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
+| [locals](https://www.terraform.io/language/values/locals) | input |
+| [variables](https://www.terraform.io/language/values/variables) | input |
+
+
 
 
 ## Inputs
@@ -36,6 +52,8 @@ Este modulo permite provisionar cluster ECS.
 | family_name | Nome para task definition | `string` | mentoria-iac | yes |
 | fargate_cpu | Número de CPUs usados na taskde finition | `number` | n/a | yes |
 | fargate_memory | Quantidade de memória usada pela task definition | `number` | n/a | yes |
+
+> Precisa adicionar novas variáveis:
 
 ## Outputs
 
@@ -52,12 +70,7 @@ Este modulo permite provisionar cluster ECS.
 - **iam_role**: criar uma role que será anexada ao service ecs.
 - **iam_policy**: uma policy que permita o container enviar log para cloudwatch.
 - **iam_role_policy_attachment**: anexar a police/role.
-- **aws_lb**: application loadbalance "será publico ou privado?".
-- **lb_listener**: fornece um recurso ouvinte no ALB.
-- **lb_target_group**: fornece um target para uso do ALB.
 - **VPC**: VPC utilizada para projeto.
-- **security_group**: grupo de segurança utilizado no projeto.
-- **security_group_rule**: regras de firewall para ingress do app/alb. 
 - ***route53_record**: escopo de dns para projeto. 
 
-continua...
+> Continua...

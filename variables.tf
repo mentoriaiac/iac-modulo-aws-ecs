@@ -1,11 +1,24 @@
+variable "cria_cluster" {
+  type        = bool
+  default     = true
+  description = "Define se cluster será criado"
+}
+
 variable "cluster_name" {
   type        = string
   description = "Nome do cluster ecs"
 }
 
-variable "tags" {
-  type = map(string)
-  description = "Tags para recurso"
+variable "container_insights" {
+  type        = bool
+  default     = true
+  description = "Usado para habilitar CloudWatch Container Insights para o cluster"
+}
+
+variable "delete_protection" {
+  type        = bool
+  default     = false
+  description = "Impede que terraform exclua o load balance"
 }
 
 variable "region" {
@@ -39,41 +52,41 @@ variable "fargate_memory" {
 }
 
 variable "subnet_ids" {
-  type    = list(string)
-
+  type        = list(string)
+  description = "Id da subnet"
 }
 
 variable "security_groups" {
-  type    = list(string)
-
+  type        = list(string)
+  description = "Id do security group"
 }
 
 variable "vpc_id" {
-  type    = string
-
+  type        = string
+  description = "Id da vpc"
 }
 
 variable "app_port" {
-  type    = number
-
+  type        = number
+  description = "Porta que será utilizada pela aplicação"
 }
 
 variable "protocol" {
-  type    = string
-
+  type        = string
+  description = "Protocolo que será utilizado na aplicação <http, https, tcp>"
 }
 
 variable "policy_ssl" {
-  type    = string
-
+  type        = string
+  description = "Nome da política SSL. Obrigatório se o protocolo for HTTPS ou TLS"
 }
 
 variable "certificate_arn" {
-  type    = string
-
+  type        = string
+  description = "ARN do certificado de servidor SSL padrão"
 }
 
 variable "template_container" {
-  type = string
-
+  type        = string
+  description = "Um arquivo json que contém as definições do container"
 }

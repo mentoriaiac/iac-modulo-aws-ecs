@@ -1,10 +1,10 @@
-resource "aws_ecs_service" "service-cluster" {
-  name            = var.service_name
-  cluster         = aws_ecs_cluster.cluster-iac.arn
-  task_definition = aws_ecs_task_definition.task-cluster.arn
+resource "aws_ecs_service" "service_cluster" {
+  name            = "${var.service_name}-svc"
+  cluster         = aws_ecs_cluster.cluster_iac[*].arn
+  task_definition = aws_ecs_task_definition.task_cluster.arn
   launch_type     = "FARGATE"
   desired_count   = var.app_count
-  
+
 
   network_configuration {
     subnets          = var.subnet_ids
@@ -17,8 +17,7 @@ resource "aws_ecs_service" "service-cluster" {
     container_port   = var.app_port
   }
 
-  tags = {
-    name = var.tags["name"]
-  }
+  tags = local.tags
+
   depends_on = [aws_iam_role.ecs_task_execution_role]
 }

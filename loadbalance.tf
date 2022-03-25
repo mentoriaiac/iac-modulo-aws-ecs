@@ -5,18 +5,16 @@ resource "aws_lb" "iac_lb" {
   security_groups    = var.security_groups
   subnets            = var.subnet_ids
 
-  #enable_deletion_protection = true
+  enable_deletion_protection = var.delete_protection
 
-  tags = {
-    Environment = "production"
-  }
+  tags = local.tags
 }
 
 resource "aws_lb_target_group" "iac_tg" {
-  name     = "target-group-${var.cluster_name}"
-  port     = var.app_port
-  protocol = var.protocol
-  vpc_id   = var.vpc_id
+  name        = "target-group-${var.cluster_name}"
+  port        = var.app_port
+  protocol    = var.protocol
+  vpc_id      = var.vpc_id
   target_type = "ip"
 }
 

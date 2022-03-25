@@ -1,12 +1,11 @@
-resource "aws_ecs_cluster" "cluster-iac" {
-  name = var.cluster_name
+resource "aws_ecs_cluster" "cluster_iac" {
+  count = var.cria_cluster ? 1 : 0
+  name  = var.cluster_name
 
   setting {
     name  = "containerInsights"
-    value = "enabled"
+    value = var.container_insights ? "enabled" : "disabled"
   }
 
-  tags = {
-    name = var.tags["name"]
-  }
+  tags = local.tags
 }
