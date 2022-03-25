@@ -15,7 +15,7 @@ resource "aws_lb" "iac_lb" {
 resource "aws_lb_target_group" "iac_tg" {
   name     = "target-group-${var.cluster_name}"
   port     = var.app_port
-  protocol = "HTTP"
+  protocol = var.protocol
   vpc_id   = var.vpc_id
   target_type = "ip"
 }

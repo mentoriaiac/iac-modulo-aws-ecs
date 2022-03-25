@@ -4,6 +4,7 @@ resource "aws_ecs_service" "service-cluster" {
   task_definition = aws_ecs_task_definition.task-cluster.arn
   launch_type     = "FARGATE"
   desired_count   = var.app_count
+  
 
   network_configuration {
     subnets          = var.subnet_ids
@@ -19,4 +20,5 @@ resource "aws_ecs_service" "service-cluster" {
   tags = {
     name = var.tags["name"]
   }
+  depends_on = [aws_iam_role.ecs_task_execution_role]
 }
