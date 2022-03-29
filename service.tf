@@ -1,6 +1,6 @@
 resource "aws_ecs_service" "service_cluster" {
   name            = "${var.service_name}-svc"
-  cluster         = aws_ecs_cluster.cluster_iac[*].arn
+  cluster         = aws_ecs_cluster.cluster_iac[0].arn
   task_definition = aws_ecs_task_definition.task_cluster.arn
   launch_type     = "FARGATE"
   desired_count   = var.app_count
