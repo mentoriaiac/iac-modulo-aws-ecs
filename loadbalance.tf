@@ -1,6 +1,6 @@
 resource "aws_lb" "iac_lb" {
   name                       = "load-balance-${var.cluster_name}"
-  internal                   = false #tfsec:ignore:aws-internal
+  internal                   = false #tfsec:ignore:AWS005
   load_balancer_type         = "application"
   security_groups            = var.security_groups
   subnets                    = var.subnet_ids
@@ -14,7 +14,7 @@ resource "aws_lb" "iac_lb" {
 resource "aws_lb_target_group" "iac_tg" {
   name        = "target-group-${var.cluster_name}"
   port        = var.app_port
-  protocol    = var.protocol #tfsec:ignore:target-ignore
+  protocol    = var.protocol
   vpc_id      = var.vpc_id
   target_type = "ip"
 }
@@ -22,7 +22,7 @@ resource "aws_lb_target_group" "iac_tg" {
 resource "aws_lb_listener" "iac_listener" {
   load_balancer_arn = aws_lb.iac_lb.arn
   port              = var.app_port
-  protocol          = var.protocol #tfsec:ignore:listener
+  protocol          = var.protocol #tfsec:ignore:AWS004
   ssl_policy        = var.policy_ssl
   certificate_arn   = var.certificate_arn
 
