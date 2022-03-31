@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "service_cluster" {
-  name            = "${var.service_name}-svc"
+  name            = var.service_name
   cluster         = aws_ecs_cluster.cluster_iac[0].arn
   task_definition = aws_ecs_task_definition.task_cluster.arn
   launch_type     = "FARGATE"
@@ -13,7 +13,7 @@ resource "aws_ecs_service" "service_cluster" {
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.iac_tg.id
-    container_name   = var.cluster_name
+    container_name   = element(var.template_container.*.name,0)
     container_port   = var.app_port
   }
 

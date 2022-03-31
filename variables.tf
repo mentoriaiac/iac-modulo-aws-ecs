@@ -87,6 +87,51 @@ variable "certificate_arn" {
 }
 
 variable "template_container" {
-  type        = string
+  type = list(object(
+    {
+      name      = string
+      image     = string
+      cpu       = number
+      memory    = number
+      essential = bool
+      portMappings = list(object({
+        containerPort = number
+        hostPort      = number
+      }))
+
+      logConfiguration = object({
+        logDriver = string
+        options = object({
+          awslogs-group         = string
+          awslogs-region        = string
+          awslogs-stream-prefix = string
+
+        })
+
+      })
+
+
+  }))
+  default = [{
+    name      = "nginx"
+    image     = "httpd"
+    cpu       = 128
+    memory    = 256
+    essential = true
+    portMappings = [{
+      containerPort = 80
+      hostPort      = 80
+    }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "mentoria-iac"
+        awslogs-region        = "us-east-2"
+        awslogs-stream-prefix = "nginx"
+
+      }
+    }
+  }]
   description = "Um arquivo json que contém as definições do container"
 }
+
