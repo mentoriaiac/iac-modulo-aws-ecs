@@ -9,11 +9,12 @@ resource "aws_ecs_service" "service_cluster" {
   network_configuration {
     subnets          = var.subnet_ids
     assign_public_ip = true
-    security_groups  = var.security_groups
+    security_groups  = aws_security_group.allow_acesso[*].id
   }
+
   load_balancer {
     target_group_arn = aws_lb_target_group.iac_tg.id
-    container_name   = element(var.template_container.*.name,0)
+    container_name   = element(var.template_container.*.name, 0)
     container_port   = var.app_port
   }
 

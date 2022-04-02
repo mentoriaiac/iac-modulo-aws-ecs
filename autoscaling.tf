@@ -60,13 +60,13 @@ resource "aws_appautoscaling_policy" "memory" {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
 
-    target_value       = 80
+    target_value = 80
   }
 }
 
 resource "aws_appautoscaling_policy" "cpu" {
-  name = "dev-to-cpu"
-  policy_type = "TargetTrackingScaling"
+  name               = "dev-to-cpu"
+  policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ecs_target.resource_id
   scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
   service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace

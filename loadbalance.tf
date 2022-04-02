@@ -2,7 +2,7 @@ resource "aws_lb" "iac_lb" {
   name                       = "load-balance-${var.cluster_name}"
   internal                   = false #tfsec:ignore:AWS005
   load_balancer_type         = "application"
-  security_groups            = var.security_groups
+  security_groups            = aws_security_group.allow_acesso[*].id
   subnets                    = var.subnet_ids
   drop_invalid_header_fields = true
 
