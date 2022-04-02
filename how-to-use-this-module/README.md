@@ -1,86 +1,76 @@
 # Template de módulo Terraform
 
-## Dependências
+### Pré-Requisitos
 
-Para realizar os testes localmente é necessário:
+| Name | Version |
+|------|---------|
+| [terraform](#requirement\_terraform) | >= 1.0.0 |
 
-| Ferramentas | Versão | Instalação |
-| ----------- | ------ | ---------- |
-| Terraform   | >= 1.0.0 | [Acesse](https://learn.hashicorp.com/tutorials/terraform/install-cli) |
-| Git |  >= 2.30.2 | [Acesse](https://git-scm.com/downloads) |
+### Criar `terrafile.tf`
+Crie um arquivo `terraform.tf` com o seguinte conteúdo. E altere os valores das variáveis. 
 
-# Utilizando o módulo
+```hcl
+module "ecs_mentoria" {
+  source          = "git@github.com:mentoriaiac/iac-modulo-aws-ecs.git?ref=v1.0"
+  cria_cluster    = true
+  app_port        = 80
+  region          = "us-east-1"
+  app_count       = 1
+  fargate_cpu     = 256
+  fargate_memory  = 512
+  subnet_ids      = ["<ID_SUBNET_X>", "<ID_SUBNET_Y>"]
+  vpc_id          = "<ID_AWS_VPC>"
+  protocol        = "HTTP"
+  family_name     = "<NAME>"
+  service_name    = "<NAME>"
+  cluster_name    = "<NAME>"
+  template_container = [{
+    name      = "<NAME>"
+    image     = "<ENDEREÇO_REGISTRER_IMAGEM_DOCKER>"
+    cpu       = 128
+    memory    = 256
+    essential = true
+    portMappings = [{
+      containerPort = 80
+      hostPort      = 80
+    }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "<NAME>"
+        awslogs-region        = "us-east-1"
+        awslogs-stream-prefix = "<NAME>"
 
-### Primeiro Passo:
+      }
+    }
+  }]
+}
 
-Acesse o repósitorio do módulo :
-
-<pre>
-
-├── product-api-go
-│   ├── blueprint
-│   ├── client
-│   ├── config
-│   ├── data
-│   │   └── model
-│   ├── database
-│   ├── docker_compose
-│   ├── functional_tests
-│   │   └── features
-│   ├── handlers
-│   └── telemetry
-<b>└── template-modulo-terraform </b>
-    └── how-to-use-this-module
-
-</pre>
-
-Depois acesse a pasta how-to-use-this-module
-
-```
-
-cd ./how-to-use-this-module/
-
-```
-
-Inicialize o Terraform
-
-```
-
-terraform init
-
-```
-
-### Segundo Passo:
-
-Personalize o `terrafile.tf`:
-
-```
- order = {
-    Terraspresso = 4,
-    Nomadicano = 10,
-    "Vagrante espresso" = 4,
-    Packer Spiced Latte = 6,
-    Vaulatte = 8,
-    Connectaccino = 2
-    }  
+output "load_balancer_dns_name" {
+  value = "http://${module.ecs_mentoria.loadbalance_dns_name}"
+}
 
 ```
 
-Tente criar o primeiro plan:
-```
+### Provisionando Cluster ECS
+Após preencher os valores requiridos utilize os comandos abaixo para provisonar cluster e suas aplicação.
 
+```shell
+terraform init 
+terraform fmt
+terraform validate
 terraform plan
-
-```
-
-Obs.: Caso retorne erro 401, verifique o usuário e a senha.
-
-### Terceiro Passo:
-
-Aplique suas mudanças:
-
-```
-
 terraform apply
-
 ```
+
+### Descrição dos comandos:
+Segue uma breve descrição dos comandos listados acima. 
+>**terraform init**: Execute o terraform init para baixar todos os plugins necessários.
+
+>**terraform fmt**: O comando é usado para reescrever os arquivos de configuração do Terraform para um formato e estilo canônicos.
+
+>**terraform validate**: Comando valida sintaticamente os arquivos de configuração em um diretório.
+
+>**terraform plan**: Executar um plano de terraform e colocá-lo em um arquivo chamado plano.
+
+>**terraform apply**: Usa plano para aplicar as alterações na AWS.
