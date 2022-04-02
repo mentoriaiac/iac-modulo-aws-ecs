@@ -105,33 +105,8 @@ variable "template_container" {
           awslogs-group         = string
           awslogs-region        = string
           awslogs-stream-prefix = string
-
         })
-
       })
-
-
   }))
-  default = [{
-    name      = "nginx"
-    image     = "httpd"
-    cpu       = 128
-    memory    = 256
-    essential = true
-    portMappings = [{
-      containerPort = 80
-      hostPort      = 80
-    }]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = "mentoria-iac"
-        awslogs-region        = "us-east-2"
-        awslogs-stream-prefix = "nginx"
-
-      }
-    }
-  }]
   description = "Um arquivo json que contém as definições do container"
 }
-
