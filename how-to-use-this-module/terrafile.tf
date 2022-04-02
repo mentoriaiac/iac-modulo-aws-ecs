@@ -9,8 +9,6 @@ module "ecs_mentoria" {
   subnet_ids      = ["subnet-088a19d04ae179c11", "subnet-0412167ac963b4d3a"]
   vpc_id          = "vpc-01bef7eee4893f4dc"
   protocol        = "HTTP"
-  policy_ssl      = null
-  certificate_arn = null
   family_name     = "mentoria"
   service_name    = "mentoria"
   cluster_name    = "mentoria"

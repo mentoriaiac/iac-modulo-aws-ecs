@@ -28,7 +28,7 @@ variable "region" {
 
 variable "service_name" {
   type        = string
-  description = "Nome do service cluster"
+  description = "Nome do service cluster que será criado"
 }
 
 variable "app_count" {
@@ -73,11 +73,13 @@ variable "protocol" {
 
 variable "policy_ssl" {
   type        = string
+  default     = null
   description = "Nome da política SSL. Obrigatório se o protocolo for HTTPS ou TLS"
 }
 
 variable "certificate_arn" {
   type        = string
+  default     = null
   description = "ARN do certificado de servidor SSL padrão"
 }
 
