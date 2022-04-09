@@ -70,7 +70,7 @@ resource "aws_appautoscaling_policy" "memory" {
 
 resource "aws_appautoscaling_policy" "cpu" {
   count              = local.cluster_count
-  name               = "dev-to-cpu"
+  name               = "cpu"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ecs_target[0].resource_id
   scalable_dimension = aws_appautoscaling_target.ecs_target[0].scalable_dimension
