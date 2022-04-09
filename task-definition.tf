@@ -7,5 +7,5 @@ resource "aws_ecs_task_definition" "task_cluster" {
   container_definitions    = jsonencode(var.template_container)
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
-  tags = local.tags
+  tags = var.tags
 }

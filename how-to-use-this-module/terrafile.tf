@@ -1,20 +1,23 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 module "ecs_mentoria" {
   source          = "../"
-  cria_cluster    = true
+  create_cluster    = true
   app_port        = 80
-  region          = "us-east-1"
-  app_count       = 1
+  app_count       = 2
   fargate_cpu     = 256
   fargate_memory  = 512
-  subnet_ids      = ["subnet-088a19d04ae179c11", "subnet-0412167ac963b4d3a"]
-  vpc_id          = "vpc-01bef7eee4893f4dc"
+  subnet_ids      = ["subnet-05342b8a3b251ea1c", "subnet-0f35f1f5648061021"]
+  vpc_id          = "vpc-06b39de0b51e65186"
   protocol        = "HTTP"
   family_name     = "mentoria"
   service_name    = "mentoria"
   cluster_name    = "mentoria"
   template_container = [{
     name      = "nginx"
-    image     = "httpd"
+    image     = "nginx"
     cpu       = 128
     memory    = 256
     essential = true
@@ -32,6 +35,13 @@ module "ecs_mentoria" {
       }
     }
   }]
+  tags = {
+    Env          = "production"
+    Team         = "tematico-terraform"
+    System       = "api-tika"
+    CreationWith = "terraform"
+    Repository   = "https://github.com/mentoriaiac/iac-modulo-aws-ecs"
+  }
 }
 
 output "load_balancer_dns_name" {

@@ -1,4 +1,4 @@
-variable "cria_cluster" {
+variable "create_cluster" {
   type        = bool
   default     = true
   description = "Define se cluster será criado"
@@ -19,11 +19,6 @@ variable "delete_protection" {
   type        = bool
   default     = false
   description = "Impede que terraform exclua o load balance"
-}
-
-variable "region" {
-  type        = string
-  description = "Região AWS"
 }
 
 variable "service_name" {
@@ -106,4 +101,9 @@ variable "template_container" {
       })
   }))
   description = "Um arquivo json que contém as definições do container"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags para recursos"
 }

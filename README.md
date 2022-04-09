@@ -36,11 +36,11 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 
 | Name | Type | Description |
 |------|------|---------- |
-| [aws_ecs_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource | Cluster para excutar os containers.  |
-| [aws_ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource | Permite executar e manter uma simultaneamente no número especificado de tasks em execução no cluster.  |
-| [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource | É um arquivo de texto `em formato JSON` que descreve um ou mais características dos contêineres. |
+| [aws_ecs_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource | Cria um cluster para executar os containers.  |
+| [aws_ecs_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource | Permite executar e manter número especificado de tasks definitions em execução no cluster.  |
+| [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource | É um arquivo de texto em formato JSON que descreve uma ou mais características dos contêineres. |
 | [aws_appautoscaling_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource | O Auto Scaling é um serviço que permite aumentar ou diminuir a escala das tarefas (tasks). |
-| [aws_appautoscaling_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource | O Auto Scaling é um serviço que permite aumentar ou diminuir a escala das tarefas (tasks). |
+| [aws_appautoscaling_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource | O Auto Scaling policy define as regras de escala de um serviço Auto Scaling. |
 | [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource | IAM é um serviço de gerenciamento de acesso que ajuda você a controlar o acesso aos recursos da AWS. |
 | [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource | IAM é um serviço de gerenciamento de acesso que ajuda você a controlar o acesso aos recursos da AWS. |
 | [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource | Elastic Load Balance distribui automaticamente o tráfego de entrada entre as tarefas (tasks) do serviço no cluster. |
@@ -57,14 +57,13 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cria\_cluster | Define se cluster será criado | `bool` | true | no |
+| create\_cluster | Define se cluster será criado | `bool` | true | no |
 | cluster\_name | Nome do cluster ECS | `string` | n/a | yes |
 | container\_insights | Usado para habilitar CloudWatch Container Insights para o cluster | `bool` | true | no |
 | delete\_protection | Impede que terraform exclua o load balance | `bool` | false | no |
 | region | Região AWS | `string` | n/a | yes |
 | service\_name | Nome do service cluster que será criado | `string` | n/a | yes |
 | tags | Tags para recurso | `map(string)` | n/a | yes |
-| region | Região AWS | `string` | us-west-2 | yes |
 | service\_name | Nome do service cluster que será criado | `string` | n/a | yes |
 | app\_count | Números de tarefas em execução task definition | `number` | n/a | yes |
 | family\_name | Nome para task definition | `string` | n/a | yes |
@@ -76,7 +75,8 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 | protocol | Protocolo que será utilizado na aplicação `<http, https, tcp>` | `string` | n/a | yes |
 | policy\_ssl | Nome da política SSL. Obrigatório se o protocolo for `HTTPS ou TLS` | `string` | null | no |
 | certificate\_arn | ARN do certificado de servidor SSL padrão | `string` | null | no |
-| template\_container | Um arquivo json que contém as definições do container | `list(object` | n/a | no |
+| template\_container | Um arquivo json que contém as definições do container | `list(object)` | n/a | no |
+| tags | Tag para recursos criados | `map(string)` | n/a | yes |
 
 
 ## Outputs

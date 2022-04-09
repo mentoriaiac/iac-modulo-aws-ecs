@@ -1,4 +1,5 @@
 resource "aws_ecs_service" "service_cluster" {
+  count           = local.cluster_count
   name            = var.service_name
   cluster         = aws_ecs_cluster.cluster_iac[0].arn
   task_definition = aws_ecs_task_definition.task_cluster.arn
@@ -9,16 +10,16 @@ resource "aws_ecs_service" "service_cluster" {
   network_configuration {
     subnets          = var.subnet_ids
     assign_public_ip = true
-    security_groups  = aws_security_group.allow_acesso[*].id
+    security_groups  = aws_security_group.allow_access[*].id
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.iac_tg.id
-    container_name   = element(var.template_container.*.name, 0)
+    container_name   = var.template_container[0].name
     container_port   = var.app_port
   }
 
-  tags = local.tags
+  tags = var.tags
 
   depends_on = [aws_iam_role.ecs_task_execution_role]
 }

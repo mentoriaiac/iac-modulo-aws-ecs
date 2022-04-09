@@ -14,7 +14,6 @@ module "ecs_mentoria" {
   source          = "git@github.com:mentoriaiac/iac-modulo-aws-ecs.git?ref=v1.0"
   cria_cluster    = true
   app_port        = 80
-  region          = "us-east-1"
   app_count       = 1
   fargate_cpu     = 256
   fargate_memory  = 512
@@ -44,6 +43,12 @@ module "ecs_mentoria" {
       }
     }
   }]
+  tags = {
+    key = "value"
+    key = "value"
+    key = "value"
+    key = "value"
+  }
 }
 
 output "load_balancer_dns_name" {
