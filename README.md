@@ -64,7 +64,6 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 | region | Região AWS | `string` | n/a | yes |
 | service\_name | Nome do service cluster que será criado | `string` | n/a | yes |
 | tags | Tags para recurso | `map(string)` | n/a | yes |
-| tags | Tags para recurso | `map(string)` | n/a | yes |
 | region | Região AWS | `string` | us-west-2 | yes |
 | service\_name | Nome do service cluster que será criado | `string` | n/a | yes |
 | app\_count | Números de tarefas em execução task definition | `number` | n/a | yes |
