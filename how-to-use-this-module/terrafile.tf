@@ -3,38 +3,29 @@ provider "aws" {
 }
 
 module "ecs_mentoria" {
-  source          = "../"
-  create_cluster    = true
-  app_port        = 80
-  app_count       = 2
-  fargate_cpu     = 256
-  fargate_memory  = 512
-  subnet_ids      = ["subnet-05342b8a3b251ea1c", "subnet-0f35f1f5648061021"]
-  vpc_id          = "vpc-06b39de0b51e65186"
-  protocol        = "HTTP"
-  family_name     = "mentoria"
-  service_name    = "mentoria"
-  cluster_name    = "mentoria"
-  template_container = [{
-    name      = "nginx"
-    image     = "nginx"
-    cpu       = 128
-    memory    = 256
-    essential = true
-    portMappings = [{
-      containerPort = 80
-      hostPort      = 80
-    }]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = "mentoria-iac"
-        awslogs-region        = "us-east-1"
-        awslogs-stream-prefix = "nginx"
+  source           = "../"
+  create_cluster   = true
+  app_count        = 1
+  fargate_cpu      = 256
+  fargate_memory   = 512
+  subnet_ids       = ["subnet-00825b5be94f27bfe", "subnet-066dc161feeef4a79"]
+  vpc_id           = "vpc-07f5d91b4aa236675"
+  protocol         = "HTTP"
+  family_name      = "mentoria"
+  service_name     = "mentoria"
+  cluster_name     = "mentoria"
+  container1_name  = "api"
+  container1_image = "nginx"
+  container1_port  = 80
+  container2_name  = "worker"
+  container2_image = "rebelthor/sleep"
+  container2_port  = 81
+  container3_name  = "tika"
+  container3_image = "rebelthor/sleep"
+  container3_port  = 82
+  container_cpu    = 10
+  container_memory = 128
 
-      }
-    }
-  }]
   tags = {
     Env          = "production"
     Team         = "tematico-terraform"
@@ -42,8 +33,14 @@ module "ecs_mentoria" {
     CreationWith = "terraform"
     Repository   = "https://github.com/mentoriaiac/iac-modulo-aws-ecs"
   }
+
 }
+
+
+
+
 
 output "load_balancer_dns_name" {
   value = "http://${module.ecs_mentoria.loadbalance_dns_name}"
 }
+
