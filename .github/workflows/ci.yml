@@ -1,39 +1,11 @@
-name: "Terraform"
-
+name: "Terraform Valida Modulo"
 on:
   push:
     branches:
       - main
   pull_request:
-
 jobs:
   terraform:
-    name: "Unit Tests"
-    runs-on: ubuntu-18.04
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.0
-
-      - name: Terraform Format
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: true
-
-      - name: Terraform Init
-        id: init
-        run: terraform init
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Validação do tfsec
-        id: tfsec
-        run: |
-          docker run --rm -v $PWD:/app -w /app tfsec/tfsec . 
+      uses: "mentoriaiac/cicd_centralizado/.github/workflows/terraform_valida_modulo.yaml@v0.1.0"
+      secrets:
+        token: ${{ secrets.TOKEN }}
