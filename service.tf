@@ -15,8 +15,8 @@ resource "aws_ecs_service" "service_cluster" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.iac_tg.id
-    container_name   = var.template_container[0].name
-    container_port   = var.app_port
+    container_name   = var.container1_name
+    container_port   = var.container1_port
   }
 
   tags = var.tags

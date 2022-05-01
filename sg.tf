@@ -1,12 +1,12 @@
 resource "aws_security_group" "allow_access" {
   vpc_id      = var.vpc_id
-  name        = var.template_container[0].name
+  name        = "${var.service_name}-sg"
   description = "Permite acesso app ${var.family_name}"
 
   ingress {
     description = "allow app port"
-    from_port   = var.app_port
-    to_port     = var.app_port
+    from_port   = var.container1_port
+    to_port     = var.container1_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008
   }
