@@ -33,14 +33,8 @@ module "ecs_mentoria" {
     CreationWith = "terraform"
     Repository   = "https://github.com/mentoriaiac/iac-modulo-aws-ecs"
   }
-
 }
-
-
-
-
 
 output "load_balancer_dns_name" {
   value = "http://${module.ecs_mentoria.loadbalance_dns_name}"
 }
-
