@@ -6,7 +6,6 @@ resource "aws_ecs_service" "service_cluster" {
   launch_type     = "FARGATE"
   desired_count   = var.app_count
 
-
   network_configuration {
     subnets          = var.subnet_ids
     assign_public_ip = true

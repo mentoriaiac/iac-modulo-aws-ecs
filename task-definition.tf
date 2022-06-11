@@ -11,6 +11,52 @@ resource "aws_ecs_task_definition" "task_cluster" {
       cpu       = var.container_cpu
       memory    = var.container_memory
       essential = true
+      environment = [{
+        "name": "POSTGRES_DB",
+        "value": "mariaquiteria"
+      },
+      {
+        "name": "POSTGRES_USER",
+        "value": "postgres"
+      },
+      {
+        "name": "POSTGRES_PASSWORD"
+        "value": "postgres"
+      },
+       {
+        "name": "DATABASE_HOST",
+        "value": "db"
+      },
+      {
+        "name": "SPIDERMON_TELEGRAM_FAKE",
+        "value":  "True"
+      },
+      {
+        "name":"SPIDERMON_SENTRY_FAKE",
+        "value": "True"
+      },
+      {
+        "name": "DJANGO_SETTINGS_MODULE",
+        "value": "web.settings"
+      },
+      {
+        "name": "DJANGO_CONFIGURATION",
+        "value": "Dev"
+      },
+      {
+        "name": "DJANGO_SECRET_KEY",
+        "value": "dont-tell-anybody"
+      },
+      {
+        "name": "ACCESS_TOKEN_LIFETIME_IN_MINUTES",
+        "value": "60"
+      },
+      {
+        "name": "REFRESH_TOKEN_LIFETIME_IN_MINUTES",
+        "value": "60"
+      }
+      ]
+        
       portMappings = [
         {
           containerPort = var.container1_port
@@ -22,10 +68,17 @@ resource "aws_ecs_task_definition" "task_cluster" {
         options = {
           awslogs-group         = "${aws_cloudwatch_log_group.main.name}"
           awslogs-region        = "us-east-1"
-          awslogs-stream-prefix = "${var.container1_image}"
+          awslogs-stream-prefix = "${var.container1_name}"
 
         }
       }
+
+      dependsOn = [
+    {
+        "containerName": "db",
+        "condition": "START"
+    }
+]
     },
     {
       name      = var.container2_name
@@ -33,6 +86,19 @@ resource "aws_ecs_task_definition" "task_cluster" {
       cpu       = var.container_cpu
       memory    = var.container_memory
       essential = true
+      environment = [{
+        "name": "POSTGRES_DB",
+        "value": "mariaquiteria"
+      },
+      {
+        "name": "POSTGRES_USER",
+        "value": "postgres"
+      },
+      {
+        "name": "POSTGRES_PASSWORD",
+        "value": "postgres"
+      }
+      ]
       portMappings = [
         {
           containerPort = var.container2_port
@@ -53,10 +119,8 @@ resource "aws_ecs_task_definition" "task_cluster" {
         }
       ]
     }
-
   ])
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 
   tags = var.tags
 }
-

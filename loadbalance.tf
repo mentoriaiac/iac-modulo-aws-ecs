@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "iac_tg" {
 
 resource "aws_lb_listener" "iac_listener" {
   load_balancer_arn = aws_lb.iac_lb.arn
-  port              = var.container1_port
+  port              = 80
   protocol          = var.protocol #tfsec:ignore:AWS004
   ssl_policy        = var.policy_ssl
   certificate_arn   = var.certificate_arn

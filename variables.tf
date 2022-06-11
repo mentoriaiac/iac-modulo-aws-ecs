@@ -73,49 +73,41 @@ variable "container3_port" {
 variable "container1_name" {
   type        = string
   description = "Nome do Container 1"
-
 }
 
 variable "container2_name" {
   type        = string
   description = "Nome do Container 2"
-
 }
 
 variable "container3_name" {
   type        = string
   description = "Nome do Container 3"
-
 }
 
 variable "container1_image" {
   type        = string
   description = "Imagem do Container 1"
-
 }
 
 variable "container2_image" {
   type        = string
   description = "Imagem do Container 2"
-
 }
 
 variable "container3_image" {
   type        = string
   description = "Imagem do Container 3"
-
 }
 
 variable "container_cpu" {
   type        = number
   description = "CPU do Container"
-
 }
 
 variable "container_memory" {
   type        = number
   description = "Memória do Container"
-
 }
 
 variable "protocol" {
@@ -134,6 +126,7 @@ variable "certificate_arn" {
   default     = null
   description = "ARN do certificado de servidor SSL padrão"
 }
+
 variable "tags" {
   type        = map(string)
   description = "Tags para recursos"

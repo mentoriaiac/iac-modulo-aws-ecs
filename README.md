@@ -44,7 +44,7 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 | [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource | IAM é um serviço de gerenciamento de acesso que ajuda você a controlar o acesso aos recursos da AWS. |
 | [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource | IAM é um serviço de gerenciamento de acesso que ajuda você a controlar o acesso aos recursos da AWS. |
 | [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource | Elastic Load Balance distribui automaticamente o tráfego de entrada entre as tarefas (tasks) do serviço no cluster. |
-| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lbhttps://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource | Fornece um grupo de destino que onde o load balance consiga encaminhar requisições. |
+| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource | Fornece um grupo de destino que onde o load balance consiga encaminhar requisições. |
 | [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource | Porta onde o balanceador de carga está escutando as requisições. |
 | [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_security_group) | resource |  Grupo de segurança atua como um firewall virtual. |
 | [aws_cloudwatch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource | CloudWatch responsável por armazenar os logs das task. |
@@ -67,7 +67,7 @@ O Amazon Elastic Container Service (ou ECS, para abreviar) é um serviço totalm
 | service\_name | Nome do service cluster que será criado | `string` | n/a | yes |
 | app\_count | Números de tarefas em execução task definition | `number` | n/a | yes |
 | family\_name | Nome para task definition | `string` | n/a | yes |
-| fargate\_cpu | Número de CPUs usados na taskde finition | `number` | n/a | yes |
+| fargate\_cpu | Número de CPUs usados na task definition | `number` | n/a | yes |
 | fargate\_memory | Quantidade de memória usada pela task definition | `number` | n/a | yes |
 | subnet\_ids | ID das subnetes | `list(string)` | n/a | yes |
 | vpc\_id | ID da VPC | `string` | n/a | yes |
