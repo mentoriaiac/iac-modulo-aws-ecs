@@ -11,52 +11,52 @@ resource "aws_ecs_task_definition" "task_cluster" {
       cpu       = var.container_cpu
       memory    = var.container_memory
       essential = true
+      secrets = [{
+        "name" : "DJANGO_SECRET_KEY",
+        "valueFrom" : aws_ssm_parameter.django_key.arn
+        },
+        {
+          "name" : "POSTGRES_PASSWORD",
+          "valueFrom" : aws_ssm_parameter.db_passwd.arn
+      }]
       environment = [{
-        "name": "POSTGRES_DB",
-        "value": "mariaquiteria"
-      },
-      {
-        "name": "POSTGRES_USER",
-        "value": "postgres"
-      },
-      {
-        "name": "POSTGRES_PASSWORD"
-        "value": "postgres"
-      },
-       {
-        "name": "DATABASE_HOST",
-        "value": "db"
-      },
-      {
-        "name": "SPIDERMON_TELEGRAM_FAKE",
-        "value":  "True"
-      },
-      {
-        "name":"SPIDERMON_SENTRY_FAKE",
-        "value": "True"
-      },
-      {
-        "name": "DJANGO_SETTINGS_MODULE",
-        "value": "web.settings"
-      },
-      {
-        "name": "DJANGO_CONFIGURATION",
-        "value": "Dev"
-      },
-      {
-        "name": "DJANGO_SECRET_KEY",
-        "value": "dont-tell-anybody"
-      },
-      {
-        "name": "ACCESS_TOKEN_LIFETIME_IN_MINUTES",
-        "value": "60"
-      },
-      {
-        "name": "REFRESH_TOKEN_LIFETIME_IN_MINUTES",
-        "value": "60"
-      }
+        "name" : "POSTGRES_DB",
+        "value" : "mariaquiteria"
+        },
+        {
+          "name" : "POSTGRES_USER",
+          "value" : "postgres"
+        },
+        {
+          "name" : "DATABASE_HOST",
+          "value" : "db"
+        },
+        {
+          "name" : "SPIDERMON_TELEGRAM_FAKE",
+          "value" : "True"
+        },
+        {
+          "name" : "SPIDERMON_SENTRY_FAKE",
+          "value" : "True"
+        },
+        {
+          "name" : "DJANGO_SETTINGS_MODULE",
+          "value" : "web.settings"
+        },
+        {
+          "name" : "DJANGO_CONFIGURATION",
+          "value" : "Dev"
+        },
+        {
+          "name" : "ACCESS_TOKEN_LIFETIME_IN_MINUTES",
+          "value" : "60"
+        },
+        {
+          "name" : "REFRESH_TOKEN_LIFETIME_IN_MINUTES",
+          "value" : "60"
+        }
       ]
-        
+
       portMappings = [
         {
           containerPort = var.container1_port
@@ -74,11 +74,11 @@ resource "aws_ecs_task_definition" "task_cluster" {
       }
 
       dependsOn = [
-    {
-        "containerName": "db",
-        "condition": "START"
-    }
-]
+        {
+          "containerName" : "db",
+          "condition" : "START"
+        }
+      ]
     },
     {
       name      = var.container2_name
@@ -87,17 +87,17 @@ resource "aws_ecs_task_definition" "task_cluster" {
       memory    = var.container_memory
       essential = true
       environment = [{
-        "name": "POSTGRES_DB",
-        "value": "mariaquiteria"
-      },
-      {
-        "name": "POSTGRES_USER",
-        "value": "postgres"
-      },
-      {
-        "name": "POSTGRES_PASSWORD",
-        "value": "postgres"
-      }
+        "name" : "POSTGRES_DB",
+        "value" : "mariaquiteria"
+        },
+        {
+          "name" : "POSTGRES_USER",
+          "value" : "postgres"
+        },
+        {
+          "name" : "POSTGRES_PASSWORD",
+          "value" : "postgres"
+        }
       ]
       portMappings = [
         {

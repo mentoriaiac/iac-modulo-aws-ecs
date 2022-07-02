@@ -5,7 +5,7 @@ resource "aws_security_group" "allow_access" {
 
   ingress {
     description = "allow app port"
-    from_port   = var.container1_port
+    from_port   = 80
     to_port     = var.container1_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008

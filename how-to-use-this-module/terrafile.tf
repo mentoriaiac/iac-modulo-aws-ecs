@@ -8,8 +8,8 @@ module "ecs_mentoria" {
   app_count        = 1
   fargate_cpu      = 256
   fargate_memory   = 512
-  subnet_ids       = ["subnet-046c495a36127a3ee", "subnet-008d940b51792b61e"]
-  vpc_id           = "vpc-0b3d3d75f825d84f2"
+  subnet_ids       = ["subnet-0591c222d2edbbf8e", "subnet-0943ea92117af6fbb"]
+  vpc_id           = "vpc-01ee78708ff1e26a6"
   protocol         = "HTTP"
   family_name      = "mentoria"
   service_name     = "mentoria"
@@ -21,8 +21,8 @@ module "ecs_mentoria" {
   container2_image = "library/postgres:11-alpine"
   container2_port  = 5432
   container3_name  = "tika"
-  container3_image = "rebelthor/sleep"
-  container3_port  = 82
+  container3_image = "apache/tika"
+  container3_port  = 9998
   container_cpu    = 10
   container_memory = 128
 
