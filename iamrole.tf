@@ -45,8 +45,29 @@ resource "aws_iam_policy" "ecs_task_ssm_policy" {
   tags = var.tags
 }
 
+resource "aws_iam_policy" "ecs_task_s3_policy" {
+  name = "s3_access"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action   = ["s3:*"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+  tags = var.tags
+
+}
+
 
 resource "aws_iam_role_policy_attachment" "ecs_task_ssm_attach" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = aws_iam_policy.ecs_task_ssm_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_s3_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.ecs_task_s3_policy.arn
 }

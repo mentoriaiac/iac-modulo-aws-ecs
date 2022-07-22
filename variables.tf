@@ -61,43 +61,15 @@ variable "container1_port" {
   type        = number
   description = "Porta que será utilizada pelo Container 1"
 }
-variable "container2_port" {
-  type        = number
-  description = "Porta que será utilizada pelo Container 2"
-}
-variable "container3_port" {
-  type        = number
-  description = "Porta que será utilizada pelo Container 3"
-}
 
 variable "container1_name" {
   type        = string
   description = "Nome do Container 1"
 }
 
-variable "container2_name" {
-  type        = string
-  description = "Nome do Container 2"
-}
-
-variable "container3_name" {
-  type        = string
-  description = "Nome do Container 3"
-}
-
 variable "container1_image" {
   type        = string
   description = "Imagem do Container 1"
-}
-
-variable "container2_image" {
-  type        = string
-  description = "Imagem do Container 2"
-}
-
-variable "container3_image" {
-  type        = string
-  description = "Imagem do Container 3"
 }
 
 variable "container_cpu" {
@@ -130,4 +102,8 @@ variable "certificate_arn" {
 variable "tags" {
   type        = map(string)
   description = "Tags para recursos"
+}
+
+variable "parameters" {
+  type = list(string)
 }
