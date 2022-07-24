@@ -3,6 +3,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "template_file" "container_definitions" {
+  template = file("./container_definitions.json")
+}
+
 module "ecs_mentoria" {
   source           = "../"
   create_cluster   = true
@@ -16,16 +20,8 @@ module "ecs_mentoria" {
   service_name     = "mentoria"
   cluster_name     = "mentoria"
   container1_name  = "api"
-  container1_image = "chnacib/mariaquiteria:latest"
   container1_port  = 8000
-  container_cpu    = 10
-  container_memory = 128
-  parameters = ["aws_s3_region", "aws_s3_bucket", "django_secret_key", "django_configuration",
-    "aws_s3_bucket_folder", "access_token_lifetime_in_minutes",
-    "django_settings_module", "postgres_user", "postgres_endpoint",
-    "postgres_name", "postgres_password", "postgres_user",
-    "refresh_token_lifetime_in_minutes", "sentry_dsn",
-  "spidermon_sentry_fake", "spidermon_telegram_fake"]
+  container_definitions = data.template_file.container_definitions.rendered
 
   tags = {
     Env          = "production"

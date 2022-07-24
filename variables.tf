@@ -67,21 +67,6 @@ variable "container1_name" {
   description = "Nome do Container 1"
 }
 
-variable "container1_image" {
-  type        = string
-  description = "Imagem do Container 1"
-}
-
-variable "container_cpu" {
-  type        = number
-  description = "CPU do Container"
-}
-
-variable "container_memory" {
-  type        = number
-  description = "Memória do Container"
-}
-
 variable "protocol" {
   type        = string
   description = "Protocolo que será utilizado na aplicação <http, https, tcp>"
@@ -104,6 +89,7 @@ variable "tags" {
   description = "Tags para recursos"
 }
 
-variable "parameters" {
-  type = list(string)
+variable "container_definitions" {
+  type = string
+  description = "Arquivo de definição do service do ECS"
 }
