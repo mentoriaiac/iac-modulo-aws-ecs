@@ -1,0 +1,29 @@
+[
+    {
+      "cpu": 256,
+      "image": "chnacib/mariaquiteria:latest",
+      "memory": 512,
+      "name": "api",
+      "networkMode": "awsvpc",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000
+        }
+      ],
+      "environment": [
+        {
+          "name": "AWESOME_ENV_VAR",
+          "value": "/mariaquiteria/aws_s3_region"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "mentoria-log",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "myawesomeapp"
+        }
+      }
+    }
+  ]
