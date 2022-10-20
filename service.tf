@@ -1,8 +1,8 @@
 resource "aws_ecs_service" "service_cluster" {
-  count           = local.cluster_count
-  name            = var.service_name
-  cluster         = aws_ecs_cluster.cluster_iac[0].arn
-  task_definition = aws_ecs_task_definition.task_cluster.arn
+  for_each        = var.services
+  name            = each.value.name
+  cluster         = try(element(aws_ecs_cluster.cluster_iac.*.arn, 0), data.aws_ecs_cluster.main[0])
+  task_definition = aws_ecs_task_definition.task_cluster[each.key].arn
   launch_type     = "FARGATE"
   desired_count   = var.app_count
 
@@ -14,8 +14,8 @@ resource "aws_ecs_service" "service_cluster" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.iac_tg.id
-    container_name   = var.container1_name
-    container_port   = var.container1_port
+    container_name   = each.value.name
+    container_port   = element(each.value.port_mappings.*.containerPort, 0)
   }
 
   tags = var.tags
