@@ -13,7 +13,7 @@ resource "aws_ecs_service" "service_cluster" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.iac_tg.id
+    target_group_arn = aws_lb_target_group.iac_tg[each.key].id
     container_name   = each.value.name
     container_port   = element(each.value.port_mappings.*.containerPort, 0)
   }

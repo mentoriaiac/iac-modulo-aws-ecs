@@ -11,7 +11,8 @@ resource "aws_security_group" "allow_access" {
       from_port   = element(ingress.value.port_mappings.*.containerPort, 0)
       to_port     = element(ingress.value.port_mappings.*.containerPort, 0)
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008
+      self        = ingress.value.expose == false
+      cidr_blocks = ingress.value.expose ? ["0.0.0.0/0"] : []
     }
   }
 

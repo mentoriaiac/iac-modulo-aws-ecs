@@ -5,15 +5,18 @@ provider "aws" {
 
 variable "vpc_id" {
   type    = string
-  default = "vpc-0c3c1dcdd5021a0e3"
+  default = "vpc-04e12e30d11e56e01"
 }
 
 data "template_file" "container_definitions" {
   template = file("./container_definitions.json")
 }
 
-data "aws_subnet_ids" "main" {
-  vpc_id = var.vpc_id
+data "aws_subnets" "main" {
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
+  }
 }
 
 module "ecs_mentoria" {
@@ -22,7 +25,7 @@ module "ecs_mentoria" {
   app_count       = 1
   fargate_cpu     = 256
   fargate_memory  = 512
-  subnet_ids      = data.aws_subnet_ids.main.ids
+  subnet_ids      = data.aws_subnets.main.ids
   vpc_id          = var.vpc_id
   protocol        = "HTTP"
   family_name     = "mentoria"
