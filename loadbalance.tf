@@ -12,22 +12,24 @@ resource "aws_lb" "iac_lb" {
 }
 
 resource "aws_lb_target_group" "iac_tg" {
-  name        = "target-group-${var.cluster_name}"
-  port        = var.container1_port
-  protocol    = var.protocol
+  for_each    = var.services
+  name        = "target-group-${each.value.name}"
+  port        = element(each.value.port_mappings.*.containerPort, 0)
+  protocol    = element(each.value.port_mappings.*.protocol, 0)
   vpc_id      = var.vpc_id
   target_type = "ip"
 }
 
 resource "aws_lb_listener" "iac_listener" {
+  for_each          = var.services
   load_balancer_arn = aws_lb.iac_lb.arn
-  port              = 80
-  protocol          = var.protocol #tfsec:ignore:AWS004
+  port              = element(each.value.port_mappings.*.containerPort, 0)
+  protocol          = element(each.value.port_mappings.*.protocol, 0) #tfsec:ignore:AWS004
   ssl_policy        = var.policy_ssl
   certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.iac_tg.arn
+    target_group_arn = aws_lb_target_group.iac_tg[each.key].arn
   }
 }
